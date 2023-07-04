@@ -12,16 +12,17 @@ fund_df = pd.read_csv('C:/Users/user/Desktop/학기별 문서/현장실습/데�
 house_df = pd.read_csv('C:/Users/user/Desktop/학기별 문서/현장실습/데이터자료/케이스-쉴러_미국주택가격지수(1987.1~2023.4).csv')
 bond_df = pd.read_csv('C:/Users/user/Desktop/학기별 문서/현장실습/데이터자료/2년만기 미국채 선물 과거 데이터.csv')
 
-stock_df = stock_df[stock_df['Date'].between('1985-01-01', '2022-12-01')] # 불러올 날짜 설정
-gold_df = gold_df[gold_df['Date'].between('1985-01-01', '2022-12-01')]
-fund_df = fund_df[fund_df['Date'].between('1985-01-01', '2017-01-01')]
+# stock_df = stock_df[stock_df['Date'].between('1991-01-01', '2022-12-01')] # 불러올 날짜 설정
+# gold_df = gold_df[gold_df['Date'].between('1991-01-01', '2022-12-01')]
+# fund_df = fund_df[fund_df['Date'].between('1991-01-01', '2017-01-01')]
+# house_df = house_df[house_df['DATE'].between('1991-01-01', '2017-01-01')]
 
 ### 불러온 데이터 확인하기
 # print(stock_df.head) # 총 행렬 가져오기
 # print(gold_df.head)
 # print(fund_df.head)
 # print(house_df.head)
-print(bond_df.head)
+# print(bond_df.head)
 
 gold_df = gold_df.rename(columns={'Price USD per Oz':'Gold_Price'}) # 컬럼 rename
 fund_df = fund_df.rename(columns={'Effective Federal Funds Rate':'Funds_Rate'})
@@ -46,8 +47,11 @@ bond_df.loc[:,'Date'] = pd.to_datetime(bond_df.Date) # 날짜를 datatime 형식
 
 # print(df.isnull().sum()) # 컬럼 별 결측치 확인
 # print(len(fund_df)-fund_df.count()) # 컬럼 별 결측치 확인
+stock_df = stock_df.drop(['Open', 'High', 'Low', 'Adj Close', 'Volume'], axis = 1)
+
 fund_df = fund_df.drop(['Year', 'Month', 'Day'], axis=1) # 특정 칼럼(열) 삭제
 
+bond_df = bond_df.drop(['시가', '고가', '저가', '변동 %'], axis = 1)
 # print(df[df.isnull().any(axis=1)]) # 결측치가 하나라도 있는 행의 index와 결측치 종류를 알려준다
 fund_df = fund_df.dropna(axis=0) # 결측치를 제거하는 함수 how : any/all / subset : 특정 칼럼 선택 / inplace : 데이터프레임에 바로 적용
 
@@ -96,8 +100,9 @@ print(gold_df[gold_df.duplicated()])
 
 #######---------------------------------------- 그래프그리기 ----------------------------------------------------######
 ### 표준화(0~1)
-stock_close_df = pd.DataFrame(data=stock_df.Close)
 scaler = MinMaxScaler()
+
+stock_close_df = pd.DataFrame(data=stock_df.Close)
 scaler.fit(stock_close_df)
 stock_scaled = scaler.transform(stock_close_df)
 stock_df_scaled = pd.DataFrame(data=stock_scaled)
@@ -128,10 +133,8 @@ bond_df_scaled = pd.DataFrame(data=bond_scaled)
 # print(stock_df_scaled.max())
 # print(stock_df_scaled)
 
-
-
 ### 주식 그래프 그리기
-plt.rcParams["figure.figsize"] = (15,8)
+plt.rcParams["figure.figsize"] = (12,7)
 # Line Graph by matplotlib with wide-form DataFrame
 
 plt.plot(stock_df.Date, stock_df_scaled, color='r')
@@ -146,7 +149,7 @@ plt.plot(bond_df.Date, bond_df_scaled, color='m')
 # plt.plot(house_df.Date, house_df.House_Price, color='g')
 # plt.plot(bond_df.Date, bond_df.Bond_Close, color='m')
 
-plt.title('NASDAQ & GOLD & Fund & House & Bond', fontsize=20) 
+plt.title('NASDAQ & GOLD & FUND & HOUSE & BOND', fontsize=20) 
 plt.ylabel('figure', fontsize=14)
 plt.xlabel('Date', fontsize=14)
 plt.legend(['Nasdaq', 'Gold', 'Fund', 'House', 'bond'], fontsize=12, loc='best')
