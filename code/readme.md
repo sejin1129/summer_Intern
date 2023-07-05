@@ -1,5 +1,5 @@
 ## 미국 연간 GDP 증가량
-![image](https://github.com/sejin1129/summer_Intern/assets/113009722/fcca1ec3-c1aa-481c-b7fd-46fd21228380)
+![image](https://github.com/sejin1129/summer_Intern/assets/113009722/d0c3b9cd-bffc-4995-aa2c-c2e7fdae6b12)
 - GDP증가량을 바탕으로 자산 사이클의 추세를 알아낼 예정
 - 아래 5가지 증권데이터 지표를 미국 경제성장률(GDP)의 사이클에 대응하여 분석하고자 함
 
