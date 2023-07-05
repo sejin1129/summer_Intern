@@ -1,4 +1,6 @@
 ## 결측치 & 중복치 해결 후 증권데이터 그래프
+![image](https://github.com/sejin1129/summer_Intern/assets/113009722/21417d45-6a43-4a36-bc36-c73fd7b142e0)
+
 ![image](https://github.com/sejin1129/summer_Intern/assets/113009722/0ff9b3fd-7ee6-4260-b8f1-197498e14ec0)
 - 각각의 증권 데이터 값을 0~1 사이로 정규화(min-max)
 
